@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌡️ TempMaster Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #2d3436;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .header h1 i {
+            color: #6c5ce7;
+        }
+        
+        .header p {
+            color: #636e72;
+            font-size: 1.1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #2d3436;
+            font-size: 1.1rem;
+        }
+        
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .input-wrapper i {
+            position: absolute;
+            left: 20px;
+            color: #6c5ce7;
+            font-size: 1.2rem;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 18px 20px 18px 55px;
+            border: 2px solid #dfe6e9;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            background: #f8f9fa;
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #6c5ce7;
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
+            background: white;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(90deg, #6c5ce7, #a29bfe);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(108, 92, 231, 0.3);
+            background: linear-gradient(90deg, #5b4fcf, #9188fd);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        
+        .formula-box {
+            background: #e3f2fd;
+            border-left: 5px solid #2196f3;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 25px;
+        }
+        
+        .formula-box h3 {
+            color: #1565c0;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .formula-box p {
+            color: #37474f;
+            font-family: monospace;
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+        
+        .examples {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        .example-btn {
+            padding: 12px;
+            background: #f1f8e9;
+            border: 2px solid #c5e1a5;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: 600;
+            color: #33691e;
+            transition: all 0.2s;
+        }
+        
+        .example-btn:hover {
+            background: #dcedc8;
+            transform: scale(1.05);
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #636e72;
+            font-size: 0.9rem;
+            padding-top: 20px;
+            border-top: 1px solid #dfe6e9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-thermometer-half"></i> TempMaster Pro</h1>
+            <p>Convert Celsius to Fahrenheit instantly</p>
+        </div>
+        
+        <form action="convert" method="post" id="tempForm">
+            <div class="form-group">
+                <label for="celsius"><i class="fas fa-temperature-low"></i> Celsius Temperature</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-temperature-high"></i>
+                    <input type="text" id="celsius" name="celsius" 
+                           placeholder="Enter temperature in Celsius" 
+                           required autofocus>
+                </div>
+            </div>
+            
+            <button type="submit" class="submit-btn">
+                <i class="fas fa-sync-alt"></i> Convert to Fahrenheit
+            </button>
+        </form>
+        
+        <div class="formula-box">
+            <h3><i class="fas fa-calculator"></i> Conversion Formula</h3>
+            <p>°F = (°C × 9/5) + 32</p>
+        </div>
+        
+        <div class="examples">
+            <div class="example-btn" onclick="setExample(0)">0°C = 32°F</div>
+            <div class="example-btn" onclick="setExample(100)">100°C = 212°F</div>
+            <div class="example-btn" onclick="setExample(37)">37°C = 98.6°F</div>
+        </div>
+        
+        <div class="footer">
+            <p><i class="far fa-copyright"></i> 2024 TempMaster Pro | Servlet Application</p>
+        </div>
+    </div>
+    
+    <script>
+        function setExample(temp) {
+            document.getElementById('celsius').value = temp;
+            document.getElementById('celsius').focus();
+        }
+        
+        // Form validation
+        document.getElementById('tempForm').addEventListener('submit', function(e) {
+            const input = document.getElementById('celsius').value;
+            if(isNaN(input)) {
+                alert('Please enter a valid number');
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
